@@ -1,59 +1,69 @@
-# Invoice Management App - Full Stack
+# Invoice Management Application
 
-This project is a React-based invoice management system with a Node.js/Express backend and SQLite database.
+A simple full-stack application for managing invoices, built with React and Node.js.
 
-## System Components
+## Technology Stack
 
-### 1. Backend (`/backend`)
-*   **Technology:** Node.js, Express, SQLite3.
-*   **Database File:** `backend/invoices.db` (This file is automatically created on first run).
-*   **Port:** 5000 (`http://localhost:5000`)
+### Backend
+*   **Node.js**: Runtime environment.
+*   **Express**: Web framework for building the API.
+*   **Prisma**: ORM for database interaction and schema management.
+*   **SQLite**: Relational database (managed via Prisma).
+*   **Body-parser**: Middleware for parsing request bodies.
+*   **Cors**: Middleware for enabling Cross-Origin Resource Sharing.
 
-### 2. Frontend (`/frontend`)
-*   **Technology:** React, Axios.
-*   **Port:** 3004 (or 3000 if available)
+### Frontend
+*   **React**: UI library.
+*   **React Router**: For handling client-side routing.
+*   **Axios**: For making HTTP requests to the backend.
+*   **CSS**: Custom styling.
 
-## 🚀 Setup & Run Instructions
+## Project Setup Instructions
 
-**Step 1: Start the Backend**
-```bash
-cd backend
-npm install  # Install dependencies (only first time)
-node server.js
-```
-*The server will start on port 5000 and create `invoices.db`.*
+### Prerequisites
+*   Node.js (v14 or later)
+*   npm (Node Package Manager)
 
-**Step 2: Start the Frontend**
-```bash
-cd frontend
-npm install  # Install dependencies (only first time)
-npm start
-```
-*The app will open in your browser at `http://localhost:3004` (or similar).*
+### Backend Setup
+1.  Navigate to the backend directory:
+    ```bash
+    cd backend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Initialize the database:
+    ```bash
+    npx prisma migrate dev
+    ```
+4.  Start the server:
+    ```bash
+    node server.js
+    ```
+    The server will run on `http://localhost:5000`. The SQLite database file (`dev.db` inside `prisma` folder) will be automatically created.
 
-## 🔐 Credentials
+### Frontend Setup
+1.  Open a new terminal and navigate to the frontend directory:
+    ```bash
+    cd frontend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the application:
+    ```bash
+    npm start
+    ```
+    The application will open in your browser at `http://localhost:3000`.
 
-*   **Username:** `admin`
-*   **Password:** `password`
+## Assumptions & Simplifications
 
-## 🗄️ Accessing the Database
+*   **Authentication**: The authentication is simplified. We store users and passwords in plain text in the database for demonstration purposes. In a real application, we would use password hashing (bcrypt) and proper JWT signing.
+*   **Environment Variables**: We hardcoded database paths and configurations. In production, these should be managed via `.env` files.
+*   **Error Handling**: Basic error handling is implemented. More comprehensive validation and specialized error responses would be needed for a robust API.
 
-The database is a single file located at:
-`backend/invoices.db`
+## Known Limitation
 
-You can view the data using any SQLite viewer, such as:
-*   **DB Browser for SQLite** (Recommended)
-*   **VS Code Extensions** (e.g., SQLite Viewer)
-
-## ✨ Features
-*   **Login Authentication** (Mock JWT)
-*   **Dashboard** with statistics.
-*   **Invoice Management** (List, Create, Delete).
-*   **Search & Filter** by Name, Date, and Status.
-*   **Persistent Data** using SQLite.
-
-## 🛠️ API Endpoints
-*   `POST /login`: Authenticate user.
-*   `GET /invoices`: Fetch invoices (supports headers for filtering).
-*   `POST /invoices`: Create a new invoice.
-*   `DELETE /invoices/:id`: Delete an invoice.
+*   **Scalability**: SQLite is excellent for development and small-scale applications, but it handles only one write operation at a time (database locking). This could become a bottleneck under high concurrent load compared to client-server databases like PostgreSQL or MySQL.
